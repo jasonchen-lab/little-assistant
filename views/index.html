@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI心理咨询文案助手</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32">
+                    <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 25.2c-6.188 0-11.2-5.012-11.2-11.2S9.812 4.8 16 4.8s11.2 5.012 11.2 11.2-5.012 11.2-11.2 11.2z" fill="#4A90E2"/>
+                    <path d="M16 7.6c-2.32 0-4.4 1.48-5.16 3.64-.16.44.08.92.52 1.08.44.16.92-.08 1.08-.52.52-1.4 1.84-2.4 3.36-2.4 1.96 0 3.6 1.64 3.6 3.6 0 1.96-1.64 3.6-3.6 3.6-.44 0-.8.36-.8.8v2.4c0 .44.36.8.8.8s.8-.36.8-.8v-1.72c2.52-.44 4.4-2.64 4.4-5.28 0-2.84-2.36-5.2-5.2-5.2z" fill="#4A90E2"/>
+                    <circle cx="16" cy="22.4" r="1.2" fill="#4A90E2"/>
+                </svg>
+                <span>AI心理文案助手</span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="subtitle">你的文案写作小助手</div>
+            <h1>AI辅助的专业心理文案创作</h1>
+            <p>拒绝无脑搬洗&nbsp;&nbsp;&nbsp;一起深度思考&nbsp;&nbsp;&nbsp;9步创作高质量文案</p>
+        </section>
+
+        <section class="content-creation">
+            <div class="theme-input-container">
+                <h3 class="section-title">1. 主旨</h3>
+                <div class="hint-box">
+                    <p>我们先来确定一下文案想要传达的主旨，这个主旨可以是核心信息或者价值主张等，这是文案的灵魂。文案内容将围绕这一主题展开。</p>
+                </div>
+                <div class="input-group">
+                    <textarea 
+                        id="themeInput" 
+                        placeholder="请输入文案主旨（100字以内）" 
+                        maxlength="100"
+                        class="theme-input-placeholder"
+                    >本文案旨在[核心目标]，通过 [传达方式/内容特点]，深入阐述 [主题/理念]，以期达到[预期效果/目标受众的反应]，从而 [实现的目的]。</textarea>
+                    <div class="char-counter">0/100</div>
+                    <button id="optimizeBtn" class="optimize-button">
+                        <span class="button-text">开始优化</span>
+                        <span class="loading-text">正在优化...</span>
+                    </button>
+                </div>
+                <div class="optimization-results">
+                    <h4>优化建议</h4>
+                    <div class="suggestions">
+                        <!-- AI返回的建议将在这里动态插入 -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="title-input-container">
+                <h3 class="section-title">2. 标题</h3>
+                <div class="hint-box">
+                    <p>一个好的标题能够吸引读者的注意力，让我们来创作一个有足够吸引力的标题。</p>
+                </div>
+                <div class="input-group">
+                    <textarea 
+                        id="titleInput" 
+                        placeholder="请输入标题（50字以内）" 
+                        maxlength="50"
+                        class="title-input-placeholder text-gray"
+                    >在这里输入你的标题</textarea>
+                    <div class="char-counter">0/50</div>
+                    <button id="optimizeTitleBtn" class="optimize-button">
+                        <span class="button-text">开始优化</span>
+                        <span class="loading-text">正在优化...</span>
+                    </button>
+                </div>
+                <div class="optimization-results">
+                    <h4>优化建议</h4>
+                    <div class="suggestions">
+                        <!-- AI返回的建议将在这里动态插入 -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="purpose-input-container">
+                <h3 class="section-title">3. 用途</h3>
+                <div class="hint-box">
+                    <p>文案的用途是什么呢？不同的用途对文案的格式和风格也有不同的要求。请点选或者输入你的想法。</p>
+                </div>
+                <div class="input-group">
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="purpose1" name="purpose" value="公众号文案">
+                            <label for="purpose1">公众号文案</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="purpose2" name="purpose" value="小红书文案">
+                            <label for="purpose2">小红书文案</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="purpose3" name="purpose" value="微博文案">
+                            <label for="purpose3">微博文案</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="purpose4" name="purpose" value="视频口播稿">
+                            <label for="purpose4">视频口播稿</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="purpose5" name="purpose" value="公开课大纲">
+                            <label for="purpose5">公开课大纲</label>
+                        </div>
+                    </div>
+                    <div class="other-purpose">
+                        <textarea 
+                            id="otherPurpose" 
+                            placeholder="其他用途（100字以内）" 
+                            maxlength="100"
+                        ></textarea>
+                        <div class="char-counter">0/100</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wordcount-input-container">
+                <h3 class="section-title">4. 字数</h3>
+                <div class="hint-box">
+                    <p>那你希望文案的字数大概是多少呢？不同的字数要求会影响文案的结构和内容丰富度哦。</p>
+                    <p>一般文章的阅读速度在每分钟300到500字之间，建议文章在2000-3000字。短视频的口播速度一般在每分钟200到300字之间，请根据时间确定字数。</p>
+                </div>
+                <div class="input-group">
+                    <div class="wordcount-input-wrapper">
+                        <input 
+                            type="number" 
+                            id="wordCount" 
+                            class="wordcount-input" 
+                            placeholder="请输入期望字数（500-50000）"
+                            min="500"
+                            max="50000"
+                            step="100"
+                        >
+                        <span class="unit">字</span>
+                    </div>
+                    <div class="reading-time">预计阅读时间：<span id="readingTime">--</span>分钟</div>
+                </div>
+            </div>
+
+            <div class="reader-input-container">
+                <h3 class="section-title">5. 读者</h3>
+                <div class="hint-box">
+                    <p>这个文案的读者是谁呢？比如他们的年龄、性别、兴趣爱好、职业背景、心理状态等特征。针对不同的读者，文案的语言风格和内容重点会有所不同哦。</p>
+                </div>
+                <div class="input-group">
+                    <textarea 
+                        id="readerInput" 
+                        placeholder="请描述目标读者的特征（100字以内）" 
+                        maxlength="100"
+                        class="reader-input-placeholder text-gray"
+                    >读者是[年龄段]的[性别]，[职业背景]，[兴趣爱好]。目前正在经历[心理困扰/需求]，希望通过[期待的改变]来[达到的目标]。</textarea>
+                    <div class="char-counter">0/100</div>
+                </div>
+            </div>
+
+            <div class="approach-input-container">
+                <h3 class="section-title">6. 技术流派</h3>
+                <div class="hint-box">
+                    <p>你想采用什么技术流派的视角呢？比如：精神分析/心理动力学派、行为主义/行为治疗派、认知行为疗法（CBT）、人本主义/存在主义疗法、系统家庭治疗、格式塔疗法、解决方案聚焦治疗、情绪聚焦疗法（EFT）、接纳与��诺疗法（ACT）、正念疗法。不同的技术流派在文案中的侧重点会有所不同哦。</p>
+                </div>
+                <div class="input-group">
+                    <textarea 
+                        id="approachInput" 
+                        placeholder="请输入你想采用的技术流派（200字以内）" 
+                        maxlength="200"
+                        class="approach-input-placeholder text-gray"
+                    >采用[技术流派]的视角，重点关注[核心理念]。</textarea>
+                    <div class="char-counter">0/200</div>
+                </div>
+            </div>
+
+            <div class="style-input-container">
+                <h3 class="section-title">7. 风格</h3>
+                <div class="hint-box">
+                    <p>你期望的文章风格是怎样的呢？比如专业严谨、通俗易懂、温暖治愈、幽默风趣、震撼冲击等。根据你的选择，我会调整文案的语言和表达方式，以更好地满足你的需求。</p>
+                </div>
+                <div class="input-group">
+                    <textarea 
+                        id="styleInput" 
+                        placeholder="请描述期望的文章风格（100字以内）" 
+                        maxlength="100"
+                        class="style-input-placeholder text-gray"
+                    >采用[风格特点]的写作风格，文案整体[语言特征]，让读者感受到[情感体验]。</textarea>
+                    <div class="char-counter">0/100</div>
+                </div>
+            </div>
+
+            <div class="structure-input-container">
+                <h3 class="section-title">8. 结构</h3>
+                <div class="hint-box">
+                    <p>下面我按照爆款文案的结构，给出三条建议并标明每一部分的功能和作用，请你点选确定要使用的结构。</p>
+                </div>
+                <div class="input-group">
+                    <div class="structure-options">
+                        <div class="structure-option" data-structure="1">
+                            <h4>结构一：问题解决式文案结构</h4>
+                            <div class="structure-content">
+                                <p>1）引入问题（吸引注意）</p>
+                                <ul>
+                                    <li>开篇点出读者可能正在面临的心理问题或困惑</li>
+                                </ul>
+                                <p>2）展示问题的影响（引起共鸣）</p>
+                                <ul>
+                                    <li>详细描述该问题对读者生活、工作、人际关系的负面影响，让读者意识到问题的严重性。</li>
+                                </ul>
+                                <p>3）提供解决方案（解决问题）</p>
+                                <ul>
+                                    <li>简要介绍心理咨询的重要性，以及如何通过心理咨询来解决问题，同时给出具体的咨询方法或建议。</li>
+                                </ul>
+                                <p>4）案例分享</p>
+                                <ul>
+                                    <li>描述一个类似的案例，成功解决问题</li>
+                                </ul>
+                                <p>5）呼吁行动（引导转化）</p>
+                                <ul>
+                                    <li>鼓励读者立即采取行动，如预约咨询、加入心理咨询课程等，并提供联系方式或行动指南。</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="structure-option" data-structure="2">
+                            <h4>结构二：故事引导式文案结构</h4>
+                            <div class="structure-content">
+                                <p>1）讲述故事（建立联系）</p>
+                                <ul>
+                                    <li>通过一个与读者可能产生共鸣的真实或虚构故事来引入话题。</li>
+                                </ul>
+                                <p>2）揭示故事中的挑战与成长（激发兴趣）</p>
+                                <ul>
+                                    <li>详细描述故事中的主角是如何面对挑战，以及心理咨询如何帮助主角成长和改变。</li>
+                                </ul>
+                                <p>3）提��核心信息（传递价值）</p>
+                                <ul>
+                                    <li>从故事中提炼出心理咨询的核心价值和意义，强调心理咨询对于个人成长和幸福的重要性。</li>
+                                </ul>
+                                <p>4）呼吁行动（引导转化）</p>
+                                <ul>
+                                    <li>鼓励读者像故事中的主角一样，通过心理咨询来面对自己的挑战，并提供相关的咨询资源或联系方式。</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="structure-option" data-structure="3">
+                            <h4>结构三：对比突出式文案结构</h4>
+                            <div class="structure-content">
+                                <p>1）提出问题与现状（引起关注）</p>
+                                <ul>
+                                    <li>描述当前社会中普遍存在的心理问题或现状，如高压力、低幸福感等，并指出这些问题对个人的影响。</li>
+                                </ul>
+                                <p>2）对比分析（突出价值）</p>
+                                <ul>
+                                    <li>对比没有接受心理咨询和接受心理咨询后的不同状态或结果，突出心理咨询在改善心理状态、提升生活质量方面的价值。</li>
+                                </ul>
+                                <p>3）展示成功案例（增强信心）</p>
+                                <ul>
+                                    <li>分享一些通过心理咨询成功改善心理状态的案例，以增强读者对心理咨询的信心和期待。</li>
+                                </ul>
+                                <p>4）呼吁行动（引导转化）</p>
+                                <ul>
+                                    <li>鼓励读者立即采取行动，选择适合自己的心理咨询方式，并强调现在就开始改变的重要性。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <textarea 
+                        id="structureInput" 
+                        placeholder="请选择或输入文案结构（1500字以内）" 
+                        maxlength="1500"
+                        class="structure-input-placeholder text-gray"
+                    >点击上方结构或在此输入自定义结构要求</textarea>
+                    <div class="char-counter">0/1500</div>
+                </div>
+            </div>
+
+            <div class="reference-input-container">
+                <h3 class="section-title">9. 范文</h3>
+                <div class="hint-box">
+                    <p>你可以将优秀的文案粘贴在这里，AI会学习这些范文的写作特点，让生成的内容更贴近你的期望。</p>
+                </div>
+                <div class="reference-list">
+                    <div class="reference-item">
+                        <div class="input-group">
+                            <textarea 
+                                class="reference-input" 
+                                placeholder="请粘贴参考文案（5000字以内）" 
+                                maxlength="5000"
+                            ></textarea>
+                            <div class="char-counter">0/5000</div>
+                            <button class="remove-reference" title="删除此范文">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-reference">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    添加范文
+                </button>
+            </div>
+
+            <div class="generate-content-container">
+                <h3 class="section-title">10. 生成文案</h3>
+                <div class="hint-box">
+                    <p>点击下方按钮，AI将根据你提供的所有信息生成一篇完整的文案。</p>
+                </div>
+                <div class="input-group">
+                    <button id="generateBtn" class="generate-button">
+                        <span class="button-text">开始生成文案</span>
+                        <span class="loading-text">正在生成...</span>
+                    </button>
+                    <div class="generated-content-wrapper">
+                        <textarea 
+                            id="generatedContent" 
+                            class="generated-content" 
+                            placeholder="生成的文案将显示在这里" 
+                            readonly
+                        ></textarea>
+                        <div class="generated-content-counter">0字</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="copyBtn" class="action-button" title="复制文案">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M13 5H7C6.44772 5 6 5.44772 6 6V12C6 12.5523 6.44772 13 7 13H13C13.5523 13 14 12.5523 14 12V6C14 5.44772 13.5523 5 13 5Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M10 3H4C3.44772 3 3 3.44772 3 4V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            复制
+                        </button>
+                        <button id="downloadBtn" class="action-button" title="下载文案">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 2V11M8 11L4 7M8 11L12 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M3 14H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            下载
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <a href="/admin/login" class="admin-link" aria-label="管理员入口"></a>
+            </div>
+        </footer>
+    </main>
+
+    <script src="/js/main.js"></script>
+</body>
+</html> 

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理面板 - AI心理咨询文案助手</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <nav class="admin-nav">
+            <h2>管理面板</h2>
+            <ul>
+                <li><a href="#api-settings">API设置</a></li>
+                <li><a href="#prompt-settings">提示词管理</a></li>
+                <li><a href="#usage-stats">使用统计</a></li>
+            </ul>
+            <button id="logoutBtn" class="logout-btn">退出登录</button>
+        </nav>
+        
+        <main class="admin-content">
+            <section id="api-settings" class="settings-section">
+                <h3>API设置</h3>
+                <form id="apiForm" class="settings-form">
+                    <div class="form-group">
+                        <label for="apiProvider">API提供商</label>
+                        <select id="apiProvider" name="apiProvider">
+                            <optgroup label="国际供应商">
+                                <option value="openai">OpenAI</option>
+                                <option value="anthropic">Anthropic Claude</option>
+                                <option value="gemini">Google Gemini</option>
+                            </optgroup>
+                            <optgroup label="中国供应商">
+                                <option value="baidu">百度文心一言</option>
+                                <option value="aliyun">阿里通义千问</option>
+                                <option value="tencent">腾讯混元</option>
+                                <option value="zhipu">智谱 ChatGLM</option>
+                                <option value="doubao">豆包</option>
+                                <option value="kimi">Moonshot KIMI</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- 文心一言配置字段 -->
+                    <div id="baiduConfig" class="provider-config display-none">
+                        <div class="form-group">
+                            <label for="apiKey">API Key</label>
+                            <input type="password" id="apiKey" name="apiKey" placeholder="在百度智能云获取的 API Key">
+                        </div>
+                        <div class="form-group">
+                            <label for="secretKey">Secret Key</label>
+                            <input type="password" id="secretKey" name="secretKey" placeholder="在百度智能云获取的 Secret Key">
+                        </div>
+                        <div class="form-group">
+                            <label for="modelVersion">模型版本</label>
+                            <select id="modelVersion" name="modelVersion">
+                                <option value="ernie-bot-4">ERNIE-Bot 4.0</option>
+                                <option value="ernie-bot-8k">ERNIE-Bot 8K</option>
+                                <option value="ernie-bot">ERNIE-Bot</option>
+                                <option value="ernie-bot-turbo">ERNIE-Bot-turbo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 通义千问配置字段 -->
+                    <div id="aliyunConfig" class="provider-config display-none">
+                        <div class="form-group">
+                            <label for="aliyunApiKey">API Key</label>
+                            <input type="password" id="aliyunApiKey" name="apiKey" placeholder="在阿里云获取的 API Key">
+                        </div>
+                        <div class="form-group">
+                            <label for="aliyunSecretKey">Secret Key</label>
+                            <input type="password" id="aliyunSecretKey" name="secretKey" placeholder="在阿里云获取的 Secret Key">
+                        </div>
+                    </div>
+
+                    <!-- 其他模型的配置字段 -->
+                    <div id="commonConfig" class="provider-config display-none">
+                        <div class="form-group">
+                            <label for="commonApiKey">API Key</label>
+                            <input type="password" id="commonApiKey" name="apiKey" placeholder="请输入 API Key">
+                        </div>
+                        <div class="form-group">
+                            <label for="commonSecretKey">Secret Key</label>
+                            <input type="password" id="commonSecretKey" name="secretKey" placeholder="请输入 Secret Key">
+                        </div>
+                    </div>
+
+                    <button type="submit">保存设置</button>
+                </form>
+            </section>
+
+            <section id="prompt-settings" class="settings-section">
+                <h3>提示词管理</h3>
+                
+                <!-- 主旨优化提示词 -->
+                <div class="prompt-editor">
+                    <h4>主旨优化提示词</h4>
+                    <textarea id="themePrompt" rows="6" placeholder="输入主旨优化的提示词模板..."></textarea>
+                    <div class="template-vars">
+                        可用变量：
+                        <code>{theme}</code> - 用户输入的主旨
+                        <code>{maxLength}</code> - 最大字数限制
+                    </div>
+                    <button id="saveThemePrompt" class="save-button">保存提示词</button>
+                </div>
+
+                <!-- 标题优化提示词 -->
+                <div class="prompt-editor">
+                    <h4>标题优化提示词</h4>
+                    <textarea id="titlePrompt" rows="6" placeholder="输入标题优化的提示词模板..."></textarea>
+                    <div class="template-vars">
+                        可用变量：
+                        <code>{title}</code> - 用户输入的标题
+                        <code>{maxLength}</code> - 最大字数限制
+                    </div>
+                    <button id="saveTitlePrompt" class="save-button">保存提示词</button>
+                </div>
+
+                <!-- 文案生成提示词 -->
+                <div class="prompt-editor">
+                    <h4>文案生成提示词</h4>
+                    <div class="template-vars">
+                        <p>可用变量：</p>
+                        <code>{{theme}}</code> - 文案主旨
+                        <code>{{title}}</code> - 文案标题
+                        <code>{{purpose}}</code> - 文案用途
+                        <code>{{wordCount}}</code> - 字数要求
+                        <code>{{reader}}</code> - 目标读者
+                        <code>{{approach}}</code> - 技术流派
+                        <code>{{style}}</code> - 写作风格
+                        <code>{{structure}}</code> - 文章结构
+                        <code>{{references}}</code> - 参考范文
+                    </div>
+                    <textarea id="generatePrompt" rows="15" placeholder="编辑文案生成的提示词模板">根据以下信息生成一篇文案：
+
+1. 主旨：{{theme}}
+2. 标题：{{title}}
+3. 用途：{{purpose}}
+4. 字数要求：{{wordCount}}字
+5. 目标读者：{{reader}}
+6. 技术流派：{{approach}}
+7. 写作风格：{{style}}
+8. 文章结构：{{structure}}
+9. 参考范文：{{references}}
+
+要求��
+1. 严格按照指定的文章结构来组织内容
+2. 符合目标读者的阅读习惯和理解水平
+3. 运用指定的技术流派的核心理念
+4. 保持指定的写作风格
+5. 确保文案主旨明确、论述有力
+6. 适当借鉴参考范文的优秀写作特点</textarea>
+                    <button id="saveGeneratePrompt" class="save-button">保存提示词</button>
+                </div>
+            </section>
+
+            <section id="usage-stats" class="settings-section">
+                <h3>使用统计</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>今日调用次数</h4>
+                        <div class="stat-value" id="todayCalls">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>本月调用次数</h4>
+                        <div class="stat-value" id="monthCalls">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>API费用统计</h4>
+                        <div class="stat-value" id="apiCost">¥0.00</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/js/admin/dashboard.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html> 
